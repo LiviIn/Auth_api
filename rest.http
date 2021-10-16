@@ -1,23 +1,35 @@
-GET http://localhost:3010
+GET http://localhost:3014
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzQzNzA2MDIsImV4cCI6MTYzNDM3NDIwMiwiYXVkIjoiNjE2YTY1MTM3OTIyNTViNGNlZWIzNzI5In0.IYQBpxksVA0LxnhXAGMQiHjb1BjuIGwcAuxJCi25Y58
 
 
 
 ### Login Route
-POST  http://localhost:3010/auth/login
-
-
-### Register Route
-POST  http://localhost:3010/auth/register
+POST  http://localhost:3014/auth/login
 Content-Type: application/json
 
 {
-    "email": "lgh33ee@gmail.com",
+    "email": "lg2h33ee@gmail.com",
+    "password": "1234"
+}
+
+
+### Register Route
+POST  http://localhost:3014/auth/register
+Content-Type: application/json
+
+{
+    "email": "lg2h33ee@gmail.com",
     "password": "1234"
 }
 
 
 ### Refresh-token Route
 POST  http://localhost:3010/auth/refresh-token
+Content-Type: application/json
+
+{
+     "refreashToken" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzQzNzM1MTIsImV4cCI6MTY2NTkzMTExMiwiYXVkIjoiNjE2YTY1MTM3OTIyNTViNGNlZWIzNzI5In0.RTHDY31QTmWXLBi5zT_oDww2f2kncH-bJyLc2rzyVF0"  
+}
 
 
 ### logout Route

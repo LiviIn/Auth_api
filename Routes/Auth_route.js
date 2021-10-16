@@ -4,7 +4,7 @@ const createError = require('http-errors');
 
 const User = require('../Models/User_model');
 const { authSchema } = require('../helpers/validation_schema');
-const { signAccessToken } = require('../helpers/jwt_helper')
+const { signAccessToken, signRefreashToken, verifyRefreshToken } = require('../helpers/jwt_helper')
 
 router.post('/register', async(req, res, next) =>{
     // console.log(req.body)
@@ -25,7 +25,8 @@ router.post('/register', async(req, res, next) =>{
         console.log(user)
         const saveUser = await user.save();
         const accessToken = await signAccessToken(saveUser.id)
-        res.send(accessToken);
+        const refreshToken = await signRefreashToken(saveUser.id)
+        res.send({ accessToken, refreshToken });
 
     } catch (error) {
         if( error.isJoi === true ) error.status = 422
@@ -34,11 +35,44 @@ router.post('/register', async(req, res, next) =>{
 });
 
 router.post('/login', async(req, res, next) =>{
-    res.send("login route")
+   try {
+        const result = await authSchema.validateAsync(req.body)
+        const user = await User.findOne({ email: result.email })
+
+        if(!user){
+            throw createError.NotFound("User Not registered")
+        }
+
+        const isMatch = await user.isValidPassword(result.password)
+        if(!isMatch) {
+            throw createError.Unauthorized('Username/password not valid')
+        }
+
+        const accessToken = await signAccessToken(user.id)
+        const refreashToken = await signRefreashToken(user.id)
+
+       res.send({ accessToken, refreashToken })
+   } catch (error) {
+    if( error.isJoi === true ) {
+        return next(createError.BadRequest('Invalid Username/Password'))
+    }
+    next(error) 
+   }
 });
 
 router.post('/refresh-token', async(req, res, next) =>{
-    res.send("refresh token route")
+    try {
+        const { refreashToken } = req.body
+        if( !refreashToken ) throw createError.BadRequest()
+        const userId = await verifyRefreshToken( refreashToken )
+
+        const accessToken = await signAccessToken(userId)
+        const refToken = await signRefreashToken(userId)
+
+        res.send({ accessToken: accessToken, refreashToken: refToken  })
+    } catch (error) {
+        next(error)
+    }
 });
 
 router.delete('/logout', async(req, res, next) =>{
