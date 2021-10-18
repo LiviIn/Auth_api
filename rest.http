@@ -1,5 +1,5 @@
 GET http://localhost:3014
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzQzNzA2MDIsImV4cCI6MTYzNDM3NDIwMiwiYXVkIjoiNjE2YTY1MTM3OTIyNTViNGNlZWIzNzI5In0.IYQBpxksVA0LxnhXAGMQiHjb1BjuIGwcAuxJCi25Y58
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzQ1MzQ1MzYsImV4cCI6MTYzNDUzODEzNiwiYXVkIjoiNjE2YTY1MTM3OTIyNTViNGNlZWIzNzI5In0.g_DKZBnM4UiSGREJfIJt_FSUPWmrjW-53bPeIprnIDs
 
 
 
@@ -24,13 +24,18 @@ Content-Type: application/json
 
 
 ### Refresh-token Route
-POST  http://localhost:3010/auth/refresh-token
+POST  http://localhost:3014/auth/refresh-token
 Content-Type: application/json
 
 {
-     "refreashToken" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzQzNzM1MTIsImV4cCI6MTY2NTkzMTExMiwiYXVkIjoiNjE2YTY1MTM3OTIyNTViNGNlZWIzNzI5In0.RTHDY31QTmWXLBi5zT_oDww2f2kncH-bJyLc2rzyVF0"  
+     "refreashToken" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzQ1MzQ1MzYsImV4cCI6MTYzNDUzODEzNiwiYXVkIjoiNjE2YTY1MTM3OTIyNTViNGNlZWIzNzI5In0.g_DKZBnM4UiSGREJfIJt_FSUPWmrjW-53bPeIprnIDs"  
 }
 
 
 ### logout Route
-DELETE  http://localhost:3010/auth/logout
+DELETE  http://localhost:3014/auth/logout
+Content-Type: application/json
+
+{
+     "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzQ1MzM3MTYsImV4cCI6MTY2NjA5MTMxNiwiYXVkIjoiNjE2YTY1MTM3OTIyNTViNGNlZWIzNzI5In0.qLTbPRKhXYne7rzE8kHulfkrL5jRIVBC2H9J2HnD1KI"
+}
