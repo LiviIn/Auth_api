@@ -1,5 +1,5 @@
 GET http://localhost:3014
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzQ1MzQ1MzYsImV4cCI6MTYzNDUzODEzNiwiYXVkIjoiNjE2YTY1MTM3OTIyNTViNGNlZWIzNzI5In0.g_DKZBnM4UiSGREJfIJt_FSUPWmrjW-53bPeIprnIDs
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTZhNjUxMzc5MjI1NWI0Y2VlYjM3MjkiLCJpYXQiOjE2Mzc3Mzc5NDksImV4cCI6MTY0NTUxMzk0OX0.hEGW6sSqGs-iKAoXF7ArxbMaZcGiC7uIb9b2bEwTy4A
 
 
 
@@ -11,14 +11,15 @@ Content-Type: application/json
     "email": "lg2h33ee@gmail.com",
     "password": "1234"
 }
-
+### get Route
+GET  http://localhost:3014/auth/user
 
 ### Register Route
 POST  http://localhost:3014/auth/register
 Content-Type: application/json
 
 {
-    "email": "lg2h33ee@gmail.com",
+    "email": "ej2hceeer@gmail.com",
     "password": "1234"
 }
 

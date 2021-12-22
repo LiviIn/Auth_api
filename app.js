@@ -1,29 +1,46 @@
 const express = require('express');
 const morgan = require('morgan');
+const cors = require('cors');
 const createError = require('http-errors');
+// const passport = require("passport");
+const path = require('path')
 
+const auth = require('./helpers/jwt_helper');
 
 require('dotenv').config();
 require('./helpers/init_mongodb');
-require('./helpers/init_redis');
-
-const AuthRoute = require('./Routes/Auth_route');
-const { verifyAccessToken } = require('./helpers/jwt_helper')
+// require('./helpers/init_redis');
 
 const app = express();
+
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({
     extended: true
-}))
+}));
+app.use("/uploads", express.static( path.join( __dirname, 'uploads'))); //Serving static files
 
-app.get('/',verifyAccessToken, async(req, res, next) => {
-    console.log(req.headers['authorization'])
+app.use(cors());
+
+// app.use(passport.initialize());
+
+app.get('/', auth, async(req, res, next) => {
+    // console.log(req.headers['authorization'])
     res.send('Hello from express.')
 })
 
+//file path
+var home = require('./home')
+const AuthRoute = require('./Routes/Auth_route');
+const ProductRoute = require('./Routes/Product_route')
 
-app.use('/auth', AuthRoute)
+
+// URL path
+app.use('/', home);
+app.use('/auth', AuthRoute);
+app.use('/products', ProductRoute);
+
+
 //Error handler
 app.use( async (req, res, next) => {
     // const error = new Error("NOT FOUND");
@@ -42,7 +59,6 @@ app.use((err, req, res, next) =>{
         }
     })
 })
-
 
 const PORT = process.env.PORT || 3010
 
